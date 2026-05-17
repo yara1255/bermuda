@@ -141,6 +141,27 @@ interface PortalContextType {
 
 const PortalContext = createContext<PortalContextType | undefined>(undefined);
 
+/** تحويل حقول snake_case القادمة من الـ API إلى camelCase المتوقعة في الـ frontend */
+function normalizeBooking(b: any): BookingRecord {
+  return {
+    ...b,
+    checkIn: b.checkIn ?? b.check_in,
+    checkOut: b.checkOut ?? b.check_out,
+    totalPrice: b.totalPrice ?? b.total_price,
+    hotelId: b.hotelId ?? b.hotel_id,
+    roomId: b.roomId ?? b.room_id,
+    roomPhysicalId: b.roomPhysicalId ?? b.room_physical_id ?? b.room_id ?? b.roomId,
+    paymentStatus: b.paymentStatus ?? b.payment_status,
+    referenceNo: b.referenceNo ?? b.reference_no,
+    guest: b.guest ?? {
+      name: b.guest_name ?? null,
+      identity: b.guest_identity ?? null,
+      phone: b.guest_phone ?? null,
+      nationality: b.guest_nationality ?? null,
+    },
+  };
+}
+
 /**
  * @component PortalProvider
  * المزود الرئيسي للحالة (Global State) - محرك المنظومة الملكية
@@ -285,7 +306,7 @@ const dbHotels = hotelsResult.status === 'fulfilled' ? hotelsResult.value : [];
       const notifs = notifsResult?.status === 'fulfilled' ? notifsResult.value : [];
       const dbCards = cardsResult?.status === 'fulfilled' ? cardsResult.value : [];
 
-      if (Array.isArray(bookings)) setAllBookingsState(bookings);
+      if (Array.isArray(bookings)) setAllBookingsState(bookings.map(normalizeBooking));
       if (Array.isArray(logs)) setAuditLogs(logs);
       if (Array.isArray(notifs)) setNotifications(notifs);
       if (Array.isArray(dbRooms)) setRooms(dbRooms);
