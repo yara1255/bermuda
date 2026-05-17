@@ -174,11 +174,11 @@ export default function CheckoutPage() {
             <div className="grid grid-cols-2 gap-x-8 gap-y-4">
               <div className="space-y-1 text-start">
                 <Label className="text-[10px] font-black uppercase opacity-30 flex items-center gap-1.5 tracking-[0.02em]" style={{ wordSpacing: '0.18em' }}><Calendar size={10} /> {t('hotel.checkin')}</Label>
-                <p className="text-[10px] font-black" suppressHydrationWarning>{format(new Date(booking.checkIn), 'dd MMM yyyy')}</p>
+                <p className="text-[10px] font-black" suppressHydrationWarning>{(booking.checkIn ?? booking.check_in) ? format(new Date(booking.checkIn ?? booking.check_in), 'dd MMM yyyy') : '---'}</p>
               </div>
               <div className="space-y-1 text-start">
                 <Label className="text-[10px] font-black uppercase opacity-30 flex items-center gap-1.5 tracking-[0.02em]" style={{ wordSpacing: '0.18em' }}><Calendar size={10} /> {t('hotel.checkout')}</Label>
-                <p className="text-[10px] font-black" suppressHydrationWarning>{format(new Date(booking.checkOut), 'dd MMM yyyy')}</p>
+                <p className="text-[10px] font-black" suppressHydrationWarning>{(booking.checkOut ?? booking.check_out) ? format(new Date(booking.checkOut ?? booking.check_out), 'dd MMM yyyy') : '---'}</p>
               </div>
               <div className="space-y-1 text-start">
                 <Label className="text-[10px] font-black uppercase opacity-30 flex items-center gap-1.5 tracking-[0.02em]" style={{ wordSpacing: '0.18em' }}><Bed size={10} /> {t('booking.room_type')}</Label>

@@ -119,7 +119,7 @@ export default function DashboardPage() {
                       <TableCell className="text-[10px] font-black text-center px-1">{b.guest?.name || '---'}</TableCell>
                       <TableCell className="text-[9px] font-bold opacity-60 text-center px-1">{b.guest?.identity || '---'}</TableCell>
                       <TableCell className="text-[9px] font-bold opacity-60 text-center px-1" dir="ltr">{b.guest?.phone || '---'}</TableCell>
-                      <TableCell className="text-[9px] font-black text-center px-1" suppressHydrationWarning>{format(new Date(b.checkIn), 'dd/MM')} - {format(new Date(b.checkOut), 'dd/MM')}</TableCell>
+                      <TableCell className="text-[9px] font-black text-center px-1" suppressHydrationWarning>{(b.checkIn ?? b.check_in) ? format(new Date(b.checkIn ?? b.check_in), 'dd/MM') : '?'} - {(b.checkOut ?? b.check_out) ? format(new Date(b.checkOut ?? b.check_out), 'dd/MM') : '?'}</TableCell>
                       <TableCell className="text-center px-1"><Badge className={cn("text-[7px] font-black uppercase tracking-widest", b.status === 'Active' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500')}>{t(`reception.status.${b.status?.toLowerCase()}`)}</Badge></TableCell>
                       <TableCell className="text-[10px] font-black text-primary text-center px-1" suppressHydrationWarning>{b.totalPrice?.toLocaleString()} {t('common.currency')}</TableCell>
                       <TableCell className="text-[9px] font-bold opacity-60 text-center px-1">{displayNat}</TableCell>
